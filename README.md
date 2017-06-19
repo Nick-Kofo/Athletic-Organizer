@@ -12,12 +12,9 @@ Take the name after `ionic2-starter-`, and that is the name of the template to b
 
 ```bash
 $ sudo npm install -g ionic cordova
-$ionic serve to see app at browser
-```
-
-Then, to run it, cd into `myBlank` and run:
-
-```bash
+$ ionic cordova prerare
+$ ionic serve (to see app at browser)
 $ ionic cordova platform add android
-$ ionic cordova run android
+$ ionic cordova run android (have an android emulator open)
+```
 
