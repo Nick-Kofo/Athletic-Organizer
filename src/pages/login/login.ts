@@ -28,6 +28,7 @@ export class LoginPage {
   }
  
   passwordreset() {
+    this.navCtrl.push('PasswordresetPage');
   }
    
   signup() {
