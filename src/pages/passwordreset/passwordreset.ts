@@ -9,12 +9,9 @@ import { UserProvider } from '../../providers/user/user';
 })
 export class PasswordresetPage {
   email: string;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
   public userservice: UserProvider, public alertCtrl: AlertController) {
-  }
-
-  ionViewDidLoad() {
-   // console.log('ionViewDidLoad PasswordresetPage');
   }
 
   reset() {

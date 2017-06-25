@@ -8,7 +8,6 @@ import { usercreds } from '../../models/interfaces/usercreds';
 export class AuthProvider {
 
   constructor(public afireauth: AngularFireAuth) {
-    console.log('Hello AuthProvider Provider');
   }
 
   login(credentials: usercreds) {
@@ -19,9 +18,7 @@ export class AuthProvider {
         reject(err);
        })
     })
- 
     return promise;
-    
   }
 
 }

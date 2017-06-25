@@ -11,11 +11,8 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 export class LoginPage {
   credentials = {} as usercreds;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authservice: AuthProvider) {
-  }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authservice: AuthProvider) {
   }
  
   signin() {

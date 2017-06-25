@@ -13,6 +13,7 @@ export class SignupPage {
     password: '',
     displayName: ''
   }
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public userservice: UserProvider,
               public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
   }

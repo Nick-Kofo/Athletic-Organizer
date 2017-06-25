@@ -11,11 +11,9 @@ import { UserProvider } from '../../providers/user/user';
 export class ProfilePage {
   imgurl = 'https://firebasestorage.googleapis.com/v0/b/athletic-organizer.appspot.com/o/blank-profile-picture.png?alt=media&token=3177ba12-5794-4aa0-b3c3-edb8adc26349';
   moveon = true;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public imgservice: ImghandlerProvider,
     public zone: NgZone, public userservice: UserProvider, public loadingCtrl: LoadingController) {
-  }
-
-  ionViewDidLoad() {
   }
 
   chooseimage() {

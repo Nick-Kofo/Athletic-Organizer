@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 @Component({
   templateUrl: 'app.html'
 })
+
 export class MyApp {
   rootPage: any = 'LoginPage';
 
@@ -17,5 +18,6 @@ export class MyApp {
       splashScreen.hide();
     });
   }
+
 }
 
