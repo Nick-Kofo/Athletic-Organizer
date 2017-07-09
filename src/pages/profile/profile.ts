@@ -1,7 +1,8 @@
 import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ImghandlerProvider } from '../../providers/imghandler/imghandler';
 import { UserProvider } from '../../providers/user/user';
+import firebase from 'firebase';
 
 @IonicPage()
 @Component({
@@ -9,45 +10,99 @@ import { UserProvider } from '../../providers/user/user';
   templateUrl: 'profile.html',
 })
 export class ProfilePage {
-  imgurl = 'https://firebasestorage.googleapis.com/v0/b/athletic-organizer.appspot.com/o/blank-profile-picture.png?alt=media&token=3177ba12-5794-4aa0-b3c3-edb8adc26349';
-  moveon = true;
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams, public imgservice: ImghandlerProvider,
-    public zone: NgZone, public userservice: UserProvider, public loadingCtrl: LoadingController) {
+  avatar: string;
+  displayName: string;
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public userservice: UserProvider, public zone: NgZone, public alertCtrl: AlertController,
+    public imghandler: ImghandlerProvider) {
   }
 
-  chooseimage() {
-    let loader = this.loadingCtrl.create({
-      content: 'Please wait'
-    })
-    loader.present();
-    this.imgservice.uploadimage().then((uploadedurl: any) => {
-      loader.dismiss();
+  ionViewWillEnter() {
+    this.loaduserdetails();
+  }
+
+  loaduserdetails() {
+    this.userservice.getuserdetails().then((res: any) => {
+      this.displayName = res.displayName;
       this.zone.run(() => {
-        this.imgurl = uploadedurl;
-        this.moveon = false;
+        this.avatar = res.photoURL;
       })
     })
   }
 
-  updateproceed() {
-    let loader = this.loadingCtrl.create({
-      content: 'Please wait'
-    })
-    loader.present();
-    this.userservice.updateimage(this.imgurl).then((res: any) => {
-      loader.dismiss();
-      if (res.success) {
-        this.navCtrl.setRoot('TabsPage');
-      }
-      else {
-        alert(res);
-      }
+  editimage() {
+    let statusalert = this.alertCtrl.create({
+      buttons: ['okay']
+    });
+    this.imghandler.uploadimage().then((url: any) => {
+      this.userservice.updateimage(url).then((res: any) => {
+        if (res.success) {
+          statusalert.setTitle('Updated');
+          statusalert.setSubTitle('Your profile pic has been changed successfully!!');
+          statusalert.present();
+          this.zone.run(() => {
+          this.avatar = url;
+        })  
+        }  
+      }).catch((err) => {
+          statusalert.setTitle('Failed');
+          statusalert.setSubTitle('Your profile pic was not changed');
+          statusalert.present();
+      })
+      })
+  }
+
+  editname() {
+    let statusalert = this.alertCtrl.create({
+      buttons: ['okay']
+    });
+    let alert = this.alertCtrl.create({
+      title: 'Edit Nickname',
+      inputs: [{
+        name: 'nickname',
+        placeholder: 'Nickname'
+      }],
+      buttons: [{
+        text: 'Cancel',
+        role: 'cancel',
+        handler: data => {
+
+        }
+      },
+      {
+        text: 'Edit',
+        handler: data => {
+          if (data.nickname) {
+            this.userservice.updatedisplayname(data.nickname).then((res: any) => {
+              if (res.success) {
+                statusalert.setTitle('Updated');
+                statusalert.setSubTitle('Your nickname has been changed successfully!!');
+                statusalert.present();
+                this.zone.run(() => {
+                  this.displayName = data.nickname;
+                })
+              }
+
+              else {
+                statusalert.setTitle('Failed');
+                statusalert.setSubTitle('Your nickname was not changed');
+                statusalert.present();
+              }
+                             
+            })
+          }
+        }
+        
+      }]
+    });
+    alert.present();
+  }
+
+  logout() {
+    firebase.auth().signOut().then(() => {
+      this.navCtrl.parent.parent.setRoot('LoginPage');
     })
   }
 
-  proceed() {
-    this.navCtrl.setRoot('TabsPage');
-  }
 
 }

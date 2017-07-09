@@ -39,7 +39,7 @@ export class SignupPage {
       this.userservice.adduser(this.newuser).then((res: any) => {
         loader.dismiss();
         if (res.success)
-          this.navCtrl.push('ProfilePage');
+          this.navCtrl.push('ProfilepicPage');
         else
           alert('Error' + res);
       })

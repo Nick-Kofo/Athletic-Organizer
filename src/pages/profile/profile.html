@@ -1,20 +1,21 @@
 <ion-header>
-  <ion-navbar color="hcolor">
-    <ion-title>Profile Picture</ion-title>
-  </ion-navbar>
+     <ion-navbar color="hcolor">
+        Profile
+    </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <div class="profile-image">
-    <img src="{{imgurl}}">
+<ion-content padding>
+  <div class="profile-image" (click)="editimage()">
+    <img src="{{avatar}}">
   </div>
   <div>
-    <button ion-button round outline (click)="chooseimage()">Choose an image</button>
+    <h2 (click)="editname()">{{displayName}}</h2>
   </div>
-  <div [hidden]="!moveon">
-    <button ion-button round outline (click)="proceed()">Skip this step</button>
+  <div>
+    Tap on your pic or name to change it.
   </div>
-  <div [hidden]="moveon">
-    <button ion-button round outline (click)="updateproceed()">Upload & proceed</button>
+  <div class="spacer" style="height: 10px;"></div>
+  <div>
+    <button ion-button round outline color="danger" (click)="logout()">Logout</button>
   </div>
-</ion-content> 
+</ion-content>
