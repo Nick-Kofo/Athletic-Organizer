@@ -11,4 +11,8 @@ export class ChatsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
+  addbuddy() {
+    this.navCtrl.push('BuddiesPage');
+  }
+
 }
