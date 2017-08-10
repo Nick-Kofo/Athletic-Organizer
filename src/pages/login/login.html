@@ -8,18 +8,26 @@
     </ion-card-header>
     <ion-card-content>
       <ion-list no-lines>
-        <div class="spacer" style="height: 10px;"></div>
-        <ion-item>
-          <ion-input type="email" placeholder="Email" [(ngModel)]="credentials.email"></ion-input>
-        </ion-item>
-        <div class="spacer" style="height: 5px;"></div>
-        <ion-item>
-          <ion-input type="password" placeholder="Password" [(ngModel)]="credentials.password"></ion-input>
-        </ion-item>
+        <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+          <div class="spacer" style="height: 10px;"></div>
+          <ion-item>
+            <ion-input #email formControlName="email" type="email" placeholder="Your email address" [class.invalid]="!loginForm.controls.email.valid && loginForm.controls.email.dirty"></ion-input>
+          </ion-item>
+          <ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  && loginForm.controls.email.dirty">
+            <p>Please enter a valid email.</p>
+          </ion-item>
+          <div class="spacer" style="height: 5px;"></div>
+          <ion-item>
+            <ion-input #password formControlName="password" type="password" placeholder="Your password" [class.invalid]="!loginForm.controls.password.valid && loginForm.controls.password.dirty"></ion-input>
+          </ion-item>
+          <ion-item class="error-message" *ngIf="!loginForm.controls.password.valid  && loginForm.controls.password.dirty">
+            <p>Your password needs more than 6 characters.</p>
+          </ion-item>
+          <div class="spacer" style="height: 10px;"></div>
+          <button type="submit" ion-button block round outline color="light">Login</button>
+        </form>
         <div class="spacer" style="height: 10px;"></div>
         <a (click)="passwordreset()">Forgot login details ? <b> Get Help </b></a>
-        <div class="spacer" style="height: 10px;"></div>
-        <button ion-button block round outline color="light" (click)="signin()">Login</button>
         <div class="spacer" style="height: 10px;"></div>
         <p>OR</p>
         <div class="spacer" style="height: 10px;"></div>
