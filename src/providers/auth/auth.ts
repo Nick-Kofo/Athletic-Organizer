@@ -13,5 +13,4 @@ export class AuthProvider {
     return this.afireauth.auth.signInWithEmailAndPassword(email, password);
   }
 
-
 }

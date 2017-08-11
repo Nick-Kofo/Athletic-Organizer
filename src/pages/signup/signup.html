@@ -2,22 +2,38 @@
 </ion-header>
 
 <ion-content class="background">
-  <ion-card-header>
-    Signup
-  </ion-card-header>
-  <ion-card-content>
-    <ion-list>
-      <ion-item>
-        <ion-input type="email" placeholder="Email" [(ngModel)]="newuser.email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input type="password" placeholder="Password" [(ngModel)]="newuser.password"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input type="text" placeholder="Display Name" [(ngModel)]="newuser.displayName"></ion-input>
-      </ion-item>
-      <button ion-button round outline color="light" (click)="signup()">Sign up</button>
-      <button ion-button full clear color="light" (click)="goback()">Go back</button>
-    </ion-list>
-  </ion-card-content>
+  <ion-card>
+    <ion-card-header>
+      Signup
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <form [formGroup]="signupForm" (submit)="signupUser()" novalidate>
+          <ion-item>
+            <ion-input #email formControlName="email" type="email" placeholder="Your email address" [class.invalid]="!signupForm.controls.email.valid && signupForm.controls.email.dirty"></ion-input>
+          </ion-item>
+          <ion-item class="error-message" *ngIf="!signupForm.controls.email.valid  && signupForm.controls.email.dirty">
+            <p>Please enter a valid email.</p>
+          </ion-item>
+          <div class="spacer" style="height: 5px;"></div>
+          <ion-item>
+            <ion-input #password formControlName="password" type="password" placeholder="Your password" [class.invalid]="!signupForm.controls.password.valid && signupForm.controls.password.dirty"></ion-input>
+          </ion-item>
+          <ion-item class="error-message" *ngIf="!signupForm.controls.password.valid  && signupForm.controls.password.dirty">
+            <p>Your password needs more than 6 characters.</p>
+          </ion-item>
+          <div class="spacer" style="height: 5px;"></div>
+          <ion-item>
+            <ion-input #displayName formControlName="displayName" type="text" placeholder="Your display name" [class.invalid]="!signupForm.controls.displayName.valid && signupForm.controls.displayName.dirty"></ion-input>
+          </ion-item>
+          <ion-item class="error-message" *ngIf="!signupForm.controls.displayName.valid  && signupForm.controls.displayName.dirty">
+            <p>Your display name needs more than 3 characters.</p>
+          </ion-item>
+          <div class="spacer" style="height: 5px;"></div>
+          <button type="submit" ion-button round outline color="light">Sign up</button>
+        </form>
+        <button ion-button full clear color="light" (click)="goback()">Go back</button>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

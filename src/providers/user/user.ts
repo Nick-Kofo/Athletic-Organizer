@@ -2,12 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
 
-/*
-  Generated class for the UserProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class UserProvider {
   firedata = firebase.database().ref('/users');
@@ -20,30 +14,44 @@ export class UserProvider {
   Inputs - The new user object containing the email, password and displayName.
   Outputs - Promise.
   */
-  adduser(newuser) {
-    var promise = new Promise((resolve, reject) => {
-      this.afireauth.auth.createUserWithEmailAndPassword(newuser.email, newuser.password).then(() => {
+  // adduser(newuser) {
+  //   var promise = new Promise((resolve, reject) => {
+  //     this.afireauth.auth.createUserWithEmailAndPassword(newuser.email, newuser.password).then(() => {
+  //       this.afireauth.auth.currentUser.updateProfile({
+  //         displayName: newuser.displayName,
+  //         photoURL: 'https://firebasestorage.googleapis.com/v0/b/athletic-organizer.appspot.com/o/blank-profile-picture.png?alt=media&token=3177ba12-5794-4aa0-b3c3-edb8adc26349'
+  //       }).then(() => {
+  //         this.firedata.child(this.afireauth.auth.currentUser.uid).set({
+  //           uid: this.afireauth.auth.currentUser.uid,
+  //           displayName: newuser.displayName,
+  //           photoURL: 'https://firebasestorage.googleapis.com/v0/b/athletic-organizer.appspot.com/o/blank-profile-picture.png?alt=media&token=3177ba12-5794-4aa0-b3c3-edb8adc26349'
+  //         }).then(() => {
+  //           resolve({ success: true });
+  //           }).catch((err) => {
+  //             reject(err);
+  //         })
+  //         }).catch((err) => {
+  //           reject(err);
+  //       })
+  //     }).catch((err) => {
+  //       reject(err);
+  //     })
+  //   })
+  //   return promise;
+  // }
+  signupUser(email: string, password: string, displayName: string): firebase.Promise<any> {
+      return this.afireauth.auth.createUserWithEmailAndPassword(email, password).then(() => {
         this.afireauth.auth.currentUser.updateProfile({
-          displayName: newuser.displayName,
+          displayName: displayName,
           photoURL: 'https://firebasestorage.googleapis.com/v0/b/athletic-organizer.appspot.com/o/blank-profile-picture.png?alt=media&token=3177ba12-5794-4aa0-b3c3-edb8adc26349'
         }).then(() => {
           this.firedata.child(this.afireauth.auth.currentUser.uid).set({
             uid: this.afireauth.auth.currentUser.uid,
-            displayName: newuser.displayName,
+            displayName: displayName,
             photoURL: 'https://firebasestorage.googleapis.com/v0/b/athletic-organizer.appspot.com/o/blank-profile-picture.png?alt=media&token=3177ba12-5794-4aa0-b3c3-edb8adc26349'
-          }).then(() => {
-            resolve({ success: true });
-            }).catch((err) => {
-              reject(err);
           })
-          }).catch((err) => {
-            reject(err);
         })
-      }).catch((err) => {
-        reject(err);
-      })
-    })
-    return promise;
+      });
   }
 
   /*
@@ -52,15 +60,8 @@ export class UserProvider {
   Inputs - email of the user.
   Output - Promise.
   */
-  passwordreset(email) {
-    var promise = new Promise((resolve, reject) => {
-      firebase.auth().sendPasswordResetEmail(email).then(() => {
-        resolve({ success: true });
-      }).catch((err) => {
-        reject(err);
-      })
-    })
-    return promise;
+  passwordreset(email: string): firebase.Promise<any> {
+    return firebase.auth().sendPasswordResetEmail(email);
   }
 
   /*
@@ -71,25 +72,25 @@ export class UserProvider {
   OUtputs - Promise.
   */
   updateimage(imageurl) {
-      var promise = new Promise((resolve, reject) => {
-          this.afireauth.auth.currentUser.updateProfile({
-              displayName: this.afireauth.auth.currentUser.displayName,
-              photoURL: imageurl      
-          }).then(() => {
-              firebase.database().ref('/users/' + firebase.auth().currentUser.uid).update({
-              displayName: this.afireauth.auth.currentUser.displayName,
-              photoURL: imageurl,
-              uid: firebase.auth().currentUser.uid
-              }).then(() => {
-                  resolve({ success: true });
-                  }).catch((err) => {
-                      reject(err);
-                  })
-          }).catch((err) => {
-                reject(err);
-             })  
-      })
-      return promise;
+    var promise = new Promise((resolve, reject) => {
+        this.afireauth.auth.currentUser.updateProfile({
+            displayName: this.afireauth.auth.currentUser.displayName,
+            photoURL: imageurl      
+        }).then(() => {
+            firebase.database().ref('/users/' + firebase.auth().currentUser.uid).update({
+            displayName: this.afireauth.auth.currentUser.displayName,
+            photoURL: imageurl,
+            uid: firebase.auth().currentUser.uid
+            }).then(() => {
+                resolve({ success: true });
+                }).catch((err) => {
+                    reject(err);
+                })
+        }).catch((err) => {
+              reject(err);
+            })  
+    })
+    return promise;
   }
 
   getuserdetails() {

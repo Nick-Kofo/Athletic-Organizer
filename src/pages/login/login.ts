@@ -15,7 +15,8 @@ export class LoginPage {
   public loginForm:FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public authservice: AuthProvider,
-              public formBuilder: FormBuilder, public toastCtrl: ToastController) {
+              public formBuilder: FormBuilder, public toastCtrl: ToastController)
+  {
       this.loginForm = formBuilder.group({
         email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
         password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
@@ -31,14 +32,14 @@ export class LoginPage {
       toaster.setMessage('Invalid email or password');
       toaster.present();
     } else {
-        this.authservice.loginUser(this.loginForm.value.email, this.loginForm.value.password)
-          .then( authData => {
-            this.navCtrl.setRoot('TabsPage');
-          }, error => {
-            toaster.setMessage('Wrong email or password');
-            toaster.present();
-          }
-        );
+      this.authservice.loginUser(this.loginForm.value.email, this.loginForm.value.password)
+        .then( authData => {
+          this.navCtrl.setRoot('TabsPage');
+        }, error => {
+          toaster.setMessage('Wrong email or password');
+          toaster.present();
+        }
+      );
     }
   }
  
