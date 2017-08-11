@@ -14,44 +14,19 @@ export class UserProvider {
   Inputs - The new user object containing the email, password and displayName.
   Outputs - Promise.
   */
-  // adduser(newuser) {
-  //   var promise = new Promise((resolve, reject) => {
-  //     this.afireauth.auth.createUserWithEmailAndPassword(newuser.email, newuser.password).then(() => {
-  //       this.afireauth.auth.currentUser.updateProfile({
-  //         displayName: newuser.displayName,
-  //         photoURL: 'https://firebasestorage.googleapis.com/v0/b/athletic-organizer.appspot.com/o/blank-profile-picture.png?alt=media&token=3177ba12-5794-4aa0-b3c3-edb8adc26349'
-  //       }).then(() => {
-  //         this.firedata.child(this.afireauth.auth.currentUser.uid).set({
-  //           uid: this.afireauth.auth.currentUser.uid,
-  //           displayName: newuser.displayName,
-  //           photoURL: 'https://firebasestorage.googleapis.com/v0/b/athletic-organizer.appspot.com/o/blank-profile-picture.png?alt=media&token=3177ba12-5794-4aa0-b3c3-edb8adc26349'
-  //         }).then(() => {
-  //           resolve({ success: true });
-  //           }).catch((err) => {
-  //             reject(err);
-  //         })
-  //         }).catch((err) => {
-  //           reject(err);
-  //       })
-  //     }).catch((err) => {
-  //       reject(err);
-  //     })
-  //   })
-  //   return promise;
-  // }
   signupUser(email: string, password: string, displayName: string): firebase.Promise<any> {
-      return this.afireauth.auth.createUserWithEmailAndPassword(email, password).then(() => {
-        this.afireauth.auth.currentUser.updateProfile({
+    return this.afireauth.auth.createUserWithEmailAndPassword(email, password).then(() => {
+      this.afireauth.auth.currentUser.updateProfile({
+        displayName: displayName,
+        photoURL: 'https://firebasestorage.googleapis.com/v0/b/athletic-organizer.appspot.com/o/blank-profile-picture.png?alt=media&token=3177ba12-5794-4aa0-b3c3-edb8adc26349'
+      }).then(() => {
+        this.firedata.child(this.afireauth.auth.currentUser.uid).set({
+          uid: this.afireauth.auth.currentUser.uid,
           displayName: displayName,
           photoURL: 'https://firebasestorage.googleapis.com/v0/b/athletic-organizer.appspot.com/o/blank-profile-picture.png?alt=media&token=3177ba12-5794-4aa0-b3c3-edb8adc26349'
-        }).then(() => {
-          this.firedata.child(this.afireauth.auth.currentUser.uid).set({
-            uid: this.afireauth.auth.currentUser.uid,
-            displayName: displayName,
-            photoURL: 'https://firebasestorage.googleapis.com/v0/b/athletic-organizer.appspot.com/o/blank-profile-picture.png?alt=media&token=3177ba12-5794-4aa0-b3c3-edb8adc26349'
-          })
         })
-      });
+      })
+    });
   }
 
   /*
