@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 
-import { usercreds } from '../../models/interfaces/usercreds';
+import { EmailValidator } from '../../validators/email';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { AuthProvider } from '../../providers/auth/auth';
 
 @IonicPage()
@@ -10,18 +12,35 @@ import { AuthProvider } from '../../providers/auth/auth';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  credentials = {} as usercreds;
+  public loginForm:FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authservice: AuthProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authservice: AuthProvider,
+              public formBuilder: FormBuilder, public toastCtrl: ToastController)
+  {
+      this.loginForm = formBuilder.group({
+        email: ['', Validators.compose([Validators.required, EmailValidator.isValid])],
+        password: ['', Validators.compose([Validators.minLength(6), Validators.required])]
+      });
   }
  
-  signin() {
-    this.authservice.login(this.credentials).then((res: any) => {
-      if (!res.code)
-        this.navCtrl.setRoot('TabsPage');
-      else
-        alert(res);
-    })
+  loginUser() {
+    var toaster = this.toastCtrl.create({
+      duration: 3000,
+      position: 'bottom'
+    });
+    if (!this.loginForm.valid){
+      toaster.setMessage('Invalid email or password');
+      toaster.present();
+    } else {
+      this.authservice.loginUser(this.loginForm.value.email, this.loginForm.value.password)
+        .then( authData => {
+          this.navCtrl.setRoot('TabsPage');
+        }, error => {
+          toaster.setMessage('Wrong email or password');
+          toaster.present();
+        }
+      );
+    }
   }
  
   passwordreset() {
