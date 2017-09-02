@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
+import { Network } from '@ionic-native/network';
 
 import { config } from './app.firebaseconfig';
 
@@ -20,6 +21,7 @@ import { UserProvider } from '../providers/user/user';
 import { ImghandlerProvider } from '../providers/imghandler/imghandler';
 import { RequestsProvider } from '../providers/requests/requests';
 import { ChatProvider } from '../providers/chat/chat';
+
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { ChatProvider } from '../providers/chat/chat';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Network,
     File,
     FileChooser,
     FilePath,
