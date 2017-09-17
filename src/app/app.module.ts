@@ -10,9 +10,9 @@ import { FilePath } from '@ionic-native/file-path';
 import { Network } from '@ionic-native/network';
 
 import { config } from './app.firebaseconfig';
-
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
+import { GooglePlus } from '@ionic-native/google-plus';
 
 import { MyApp } from './app.component';
 
@@ -22,7 +22,6 @@ import { ImghandlerProvider } from '../providers/imghandler/imghandler';
 import { RequestsProvider } from '../providers/requests/requests';
 import { ChatProvider } from '../providers/chat/chat';
 import { GroupsProvider } from '../providers/groups/groups';
-
 
 @NgModule({
   declarations: [
@@ -47,6 +46,7 @@ import { GroupsProvider } from '../providers/groups/groups';
     FilePath,
     AuthProvider,
     AngularFireAuth,
+    GooglePlus,
     AuthProvider,
     UserProvider,
     ImghandlerProvider,
