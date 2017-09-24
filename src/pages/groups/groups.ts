@@ -34,8 +34,8 @@ export class GroupsPage {
   }
 
   openchat(group) {
-    alert('Groupchat ' + group.groupName);
-
+    this.groupservice.getintogroup(group.groupName);
+    this.navCtrl.push('GroupchatPage', { groupName: group.groupName });
   }
 
 }
