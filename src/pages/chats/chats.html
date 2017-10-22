@@ -14,15 +14,13 @@
   <ion-list-header>
     Requests
   </ion-list-header>
-  <ion-item-sliding *ngFor="let item of myrequests">
-    <ion-item>
+  <!-- <ion-list>
+  <ion-item *ngFor="let item of myrequests">
     <ion-avatar item-left>
       <img src="{{item.photoURL}}">
     </ion-avatar>
     <h4>{{item.displayName}}</h4>
-    </ion-item>
-    <ion-item-options>
-      <button ion-button color="secondary" (click)="accept(item)">
+      <button ion-button item-right color="secondary" (click)="accept(item)">
         <ion-icon name="checkmark"></ion-icon>
         ADD
       </button>
@@ -30,8 +28,24 @@
         <ion-icon name="trash"></ion-icon>
         NOPE
       </button>
-    </ion-item-options>
-  </ion-item-sliding>
+  </ion-item>
+</ion-list> -->
+
+
+  <ion-list>
+    <ion-item *ngFor="let item of myrequests" class="item item-button-right">
+      <ion-avatar item-left>
+        <img src="{{item.photoURL}}">
+      </ion-avatar>
+      <h4>{{item.displayName}}</h4>
+      <div class="buttons">
+        <button ion-button color="secondary" (click)="accept(item)"><ion-icon name="checkmark"></ion-icon>ADD</button>
+        <button ion-button color="danger" (click)="ignore(item)"><ion-icon name="trash"></ion-icon>NOPE</button>
+      </div>
+    </ion-item>
+  </ion-list>
+
+
   <ion-list-header>
     Friends
   </ion-list-header>
