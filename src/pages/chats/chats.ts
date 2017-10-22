@@ -37,7 +37,7 @@ export class ChatsPage {
 
 
   addbuddy() {
-    this.navCtrl.push('GroupbuddiesPage');
+    this.navCtrl.push('BuddiesPage');
   }
 
   accept(item) {

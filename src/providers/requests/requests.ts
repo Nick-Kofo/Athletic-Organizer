@@ -23,7 +23,7 @@ export class RequestsProvider {
         resolve({ success: true });
         }).catch((err) => {
           resolve(err);
-    })
+      })
     })
     return promise;  
   }
