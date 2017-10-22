@@ -14,24 +14,6 @@
   <ion-list-header>
     Requests
   </ion-list-header>
-  <!-- <ion-list>
-  <ion-item *ngFor="let item of myrequests">
-    <ion-avatar item-left>
-      <img src="{{item.photoURL}}">
-    </ion-avatar>
-    <h4>{{item.displayName}}</h4>
-      <button ion-button item-right color="secondary" (click)="accept(item)">
-        <ion-icon name="checkmark"></ion-icon>
-        ADD
-      </button>
-      <button ion-button color="danger" (click)="ignore(item)">
-        <ion-icon name="trash"></ion-icon>
-        NOPE
-      </button>
-  </ion-item>
-</ion-list> -->
-
-
   <ion-list>
     <ion-item *ngFor="let item of myrequests" class="item item-button-right">
       <ion-avatar item-left>
@@ -44,8 +26,6 @@
       </div>
     </ion-item>
   </ion-list>
-
-
   <ion-list-header>
     Friends
   </ion-list-header>
