@@ -4,7 +4,7 @@
 <ion-content class="background">
   <ion-card>
     <ion-card-header>
-      Login
+      Welcome
     </ion-card-header>
     <ion-card-content>
       <ion-list no-lines>
@@ -14,14 +14,14 @@
             <ion-input #email formControlName="email" type="email" placeholder="Your email address" [class.invalid]="!loginForm.controls.email.valid && loginForm.controls.email.dirty"></ion-input>
           </ion-item>
           <ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  && loginForm.controls.email.dirty">
-            <p>Please enter a valid email.</p>
+            <small>Please enter a valid email.</small>
           </ion-item>
           <div class="spacer" style="height: 5px;"></div>
           <ion-item>
             <ion-input #password formControlName="password" type="password" placeholder="Your password" [class.invalid]="!loginForm.controls.password.valid && loginForm.controls.password.dirty"></ion-input>
           </ion-item>
           <ion-item class="error-message" *ngIf="!loginForm.controls.password.valid  && loginForm.controls.password.dirty">
-            <p>Your password needs more than 6 characters.</p>
+            <small>Your password needs more than 6 characters.</small>
           </ion-item>
           <div class="spacer" style="height: 10px;"></div>
           <button type="submit" ion-button block round outline color="light">Login</button>
