@@ -102,12 +102,20 @@ export class UserProvider {
   }
 
   getallusers() {
+    var currentUser = null;
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        currentUser = user;
+      }
+    });
     var promise = new Promise((resolve, reject) => {
       this.firedata.orderByChild('uid').once('value', (snapshot) => {
         let userdata = snapshot.val();
         let temparr = [];
         for (var key in userdata) {
-          temparr.push(userdata[key]);
+          if (key != currentUser.uid) {
+            temparr.push(userdata[key]);
+          }
         }
         resolve(temparr);
       }).catch((err) => {
