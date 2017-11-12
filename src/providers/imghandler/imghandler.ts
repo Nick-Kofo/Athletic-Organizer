@@ -44,7 +44,7 @@ export class ImghandlerProvider {
           })
       })
     })    
-     return promise;   
+    return promise;   
   }
 
   picmsgstore() {
@@ -74,7 +74,7 @@ export class ImghandlerProvider {
           })
       })
     })    
-     return promise;   
+    return promise;   
   }
 
   guid() {
@@ -114,7 +114,7 @@ export class ImghandlerProvider {
             })
         })
       })
-     return promise;   
+      return promise;   
   }
 
 }
