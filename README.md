@@ -1,7 +1,6 @@
 Athletic Organizer.
 
 ## How to use this template
-First update app.firebaseconfig.ts with Firebase api keys
 ### With the Ionic CLI:
 
 ```bash
