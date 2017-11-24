@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { LoadingController } from 'ionic-angular';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import firebase from 'firebase';
@@ -7,7 +8,7 @@ import firebase from 'firebase';
 export class ImghandlerProvider {
   nativepath: any;
   firestore = firebase.storage();
-  constructor(public filechooser: FileChooser) {
+  constructor(public filechooser: FileChooser, public loadingCtrl: LoadingController, public camera: Camera) {
   }
 
   
@@ -30,30 +31,27 @@ uploadimage() {
     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
   }
   var promise = new Promise((resolve, reject) => {
-//alert("1");
-
-this.camera.getPicture(options).then((imageData) => {
-loader.present();
-var imageStore = this.firestore.ref('/profileimages').child(firebase.auth().currentUser.uid);
-imageStore.putString(imageData, 'base64').then((res) => {
-this.firestore.ref('/profileimages').child(firebase.auth().currentUser.uid).getDownloadURL().then((url) => {
-loader.dismiss()
-resolve(url);
-}).catch((err) => {
-reject(err);
-})
-}).catch((err) => {
-reject(err);
-})
-
-}, (err) => {
-}).catch((err) => {
-reject(err);
-});
-loader.dismiss();
-})
-return promise;
-}
+    this.camera.getPicture(options).then((imageData) => {
+    loader.present();
+    var imageStore = this.firestore.ref('/profileimages').child(firebase.auth().currentUser.uid);
+    imageStore.putString(imageData, 'base64').then((res) => {
+    this.firestore.ref('/profileimages').child(firebase.auth().currentUser.uid).getDownloadURL().then((url) => {
+    loader.dismiss()
+    resolve(url);
+  }).catch((err) => {
+      reject(err);
+    })
+  }).catch((err) => {
+    reject(err);
+  })
+  }, (err) => {
+    }).catch((err) => {
+    reject(err);
+    });
+    loader.dismiss();
+  })
+  return promise;
+  }
 
   // uploadimage() {
   //   var promise = new Promise((resolve, reject) => {
