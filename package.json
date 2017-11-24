@@ -1,5 +1,5 @@
 {
-    "name": "AthleticOrganizer",
+    "name": "Chathlete",
     "version": "0.0.1",
     "author": "Nikos Kofotolios",
     "homepage": "www.kofotolios.gr",
@@ -27,8 +27,7 @@
         "@ionic-native/status-bar": "3.10.2",
         "@ionic/storage": "2.0.1",
         "angularfire2": "^4.0.0-rc.1",
-        "cordova-android": "~6.1.2",
-        "cordova-ios": "^4.4.0",
+        "cordova-android": "^6.2.3",
         "cordova-plugin-compat": "^1.1.0",
         "cordova-plugin-console": "1.0.5",
         "cordova-plugin-device": "1.1.4",
@@ -56,8 +55,7 @@
     "description": "Athletic Organizer",
     "cordova": {
         "platforms": [
-            "android",
-            "ios"
+            "android"
         ],
         "plugins": {
             "cordova-plugin-console": {},
