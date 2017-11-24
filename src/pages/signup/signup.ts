@@ -34,37 +34,13 @@ export class SignupPage {
     } else {
       this.userservice.signupUser(this.signupForm.value.email, this.signupForm.value.password, this.signupForm.value.displayName)
         .then( userData => {
-          this.navCtrl.push('ProfilepicPage');
+          this.navCtrl.push('ProfilePage');
         }, error => {
           toaster.setMessage('Something went wrong');
           toaster.present();
         }
       );
     }
-
-
-
-    // if (this.newuser.email == '' || this.newuser.password == '' || this.newuser.displayName == '') {
-    //   toaster.setMessage('All fields are required');
-    //   toaster.present();
-    // }
-    // else if (this.newuser.password.length < 7) {
-    //   toaster.setMessage('Password is not strong. Try giving more than six characters');
-    //   toaster.present();
-    // }
-    // else {
-    //   let loader = this.loadingCtrl.create({
-    //     content: 'Please wait'
-    //   });
-    //   loader.present();
-    //   this.userservice.adduser(this.newuser).then((res: any) => {
-    //     loader.dismiss();
-    //     if (res.success)
-    //       this.navCtrl.push('ProfilepicPage');
-    //     else
-    //       alert('Error' + res);
-    //   })
-    // }
   }  
 
   goback() {

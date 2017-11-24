@@ -22,30 +22,6 @@ export class NewgroupPage {
     console.log('ionViewDidLoad NewgroupPage');
   }
 
-  chooseimage() {
-    if (this.newgroup.groupName == 'GroupName') {
-      let namealert = this.alertCtrl.create({
-        buttons: ['okay'],
-        message: 'Please enter the groupname first. Thanks'
-      });
-      namealert.present();
-    }
-    else {
-      let loader = this.loadingCtrl.create({
-        content: 'Loading, please wait..'
-      });
-      loader.present();
-      this.imghandler.grouppicstore(this.newgroup.groupName).then((res: any) => {
-        loader.dismiss();
-        if(res)
-          this.newgroup.groupPic = res;  
-      }).catch((err) => {
-        alert(err);
-      })
-    }
-    
-  }
-
   creategroup() {
     this.groupservice.addgroup(this.newgroup).then(() => {
       this.navCtrl.pop();

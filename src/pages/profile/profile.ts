@@ -30,28 +30,6 @@ export class ProfilePage {
     })
   }
 
-  editimage() {
-    let statusalert = this.alertCtrl.create({
-      buttons: ['okay']
-    });
-    this.imghandler.uploadimage().then((url: any) => {
-      this.userservice.updateimage(url).then((res: any) => {
-        if (res.success) {
-          statusalert.setTitle('Updated');
-          statusalert.setSubTitle('Your profile pic has been changed successfully!!');
-          statusalert.present();
-          this.zone.run(() => {
-          this.avatar = url;
-        })  
-        }  
-      }).catch((err) => {
-          statusalert.setTitle('Failed');
-          statusalert.setSubTitle('Your profile pic was not changed');
-          statusalert.present();
-      })
-      })
-  }
-
   editname() {
     let statusalert = this.alertCtrl.create({
       buttons: ['okay']
