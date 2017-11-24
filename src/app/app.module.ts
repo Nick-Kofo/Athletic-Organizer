@@ -8,6 +8,7 @@ import { File } from '@ionic-native/file';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { FilePath } from '@ionic-native/file-path';
 import { Network } from '@ionic-native/network';
+import { Camera } from '@ionic-native/camera';
 
 import { config } from './app.firebaseconfig';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -41,6 +42,7 @@ import { GroupsProvider } from '../providers/groups/groups';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Network,
+    Camera,
     File,
     FileChooser,
     FilePath,

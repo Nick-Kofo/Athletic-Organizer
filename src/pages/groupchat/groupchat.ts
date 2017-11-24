@@ -27,7 +27,7 @@ export class GroupchatPage {
       if (res)
         this.owner = true;  
     }).catch((err) => {
-      alert(err);
+      // alert(err);
       })
     this.groupservice.getgroupmsgs(this.groupName);
     this.events.subscribe('newgroupmsg', () => {
@@ -75,7 +75,7 @@ export class GroupchatPage {
         this.newmessage = '';
       })
     }).catch((err) => {
-      alert(err);
+      // alert(err);
       loader.dismiss();
     })
   }

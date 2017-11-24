@@ -112,7 +112,7 @@ export class RequestsProvider {
           }
         this.events.publish('friends');
       }).catch((err) => {
-        alert(err);
+        // alert(err);
       })
     
     })

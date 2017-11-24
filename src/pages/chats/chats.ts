@@ -56,7 +56,7 @@ export class ChatsPage {
     this.requestservice.deleterequest(item).then(() => {
 
     }).catch((err) => {
-      alert(err);
+      // alert(err);
     })
   }
 

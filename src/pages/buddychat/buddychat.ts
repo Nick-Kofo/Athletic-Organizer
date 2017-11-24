@@ -68,7 +68,7 @@ export class BuddychatPage {
         this.newmessage = '';
       })
     }).catch((err) => {
-      alert(err);
+      // alert(err);
       loader.dismiss();
     })
   }

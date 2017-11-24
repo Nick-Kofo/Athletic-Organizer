@@ -61,7 +61,7 @@ export class BuddiesPage {
           this.filteredusers.splice(sentuser, 1);
         }
       }).catch((err) => {
-        alert(err);
+        // alert(err);
       })
     }
   }
