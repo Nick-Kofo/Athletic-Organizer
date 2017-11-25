@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
+import { LoadingController } from 'ionic-angular';
 import { FileChooser } from '@ionic-native/file-chooser';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 import firebase from 'firebase';
 
 @Injectable()
 export class ImghandlerProvider {
   nativepath: any;
   firestore = firebase.storage();
-  constructor(public filechooser: FileChooser) {
+  constructor(public filechooser: FileChooser, public loadingCtrl: LoadingController, public camera: Camera) {
   }
 
   
@@ -17,34 +19,38 @@ export class ImghandlerProvider {
  Inputs - None.
  Outputs - The image url of the stored image. 
  */
-  uploadimage() {
-    var promise = new Promise((resolve, reject) => {
-        this.filechooser.open().then((url) => {
-          (<any>window).FilePath.resolveNativePath(url, (result) => {
-            this.nativepath = result;
-            (<any>window).resolveLocalFileSystemURL(this.nativepath, (res) => {
-              res.file((resFile) => {
-                var reader = new FileReader();
-                reader.readAsArrayBuffer(resFile);
-                reader.onloadend = (evt: any) => {
-                  var imgBlob = new Blob([evt.target.result], { type: 'image/jpeg' });
-                  var imageStore = this.firestore.ref('/profileimages').child(firebase.auth().currentUser.uid);
-                  imageStore.put(imgBlob).then((res) => {
-                    this.firestore.ref('/profileimages').child(firebase.auth().currentUser.uid).getDownloadURL().then((url) => {
-                      resolve(url);
-                    }).catch((err) => {
-                        reject(err);
-                    })
-                  }).catch((err) => {
-                    reject(err);
-                  })
-                }
-              })
-            })
-          })
-      })
-    })    
-    return promise;   
+uploadimage() {
+  let loader = this.loadingCtrl.create({
+    content: 'Please wait'
+  });
+  const options: CameraOptions = {
+    quality: 100,
+    destinationType: this.camera.DestinationType.DATA_URL,
+    encodingType: this.camera.EncodingType.JPEG,
+    mediaType: this.camera.MediaType.PICTURE,
+    sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
+  }
+  var promise = new Promise((resolve, reject) => {
+    this.camera.getPicture(options).then((imageData) => {
+    loader.present();
+    var imageStore = this.firestore.ref('/profileimages').child(firebase.auth().currentUser.uid);
+    imageStore.putString(imageData, 'base64').then((res) => {
+    this.firestore.ref('/profileimages').child(firebase.auth().currentUser.uid).getDownloadURL().then((url) => {
+    loader.dismiss()
+    resolve(url);
+  }).catch((err) => {
+      reject(err);
+    })
+  }).catch((err) => {
+    reject(err);
+  })
+  }, (err) => {
+    }).catch((err) => {
+    reject(err);
+    });
+    loader.dismiss();
+  })
+  return promise;
   }
 
   picmsgstore() {
